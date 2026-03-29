@@ -23,10 +23,10 @@ const THRESHOLDS = {
 };
 
 const MODEL_COLORS = {
-  rf: '#6b8dd4',
-  transformer: '#78b957',
-  tcn: '#d4a43e',
-  observed: '#a97ba7',
+  rf: '#2d4a8a',
+  transformer: '#3d6b24',
+  tcn: '#8a5f1a',
+  observed: '#6b4369',
 };
 
 const MODEL_LABELS = {
@@ -89,7 +89,6 @@ export default function ForecastChart() {
     rf: true,
     transformer: true,
     tcn: true,
-    observed: true,
   });
 
   const toggleModel = (model: keyof typeof visibleModels) => {
@@ -162,20 +161,20 @@ export default function ForecastChart() {
         <AreaChart data={forecastData} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
           <defs>
             <linearGradient id="rfGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#6b8dd4" stopOpacity={0.2} />
-              <stop offset="95%" stopColor="#6b8dd4" stopOpacity={0.02} />
+              <stop offset="5%" stopColor="#2d4a8a" stopOpacity={0.2} />
+              <stop offset="95%" stopColor="#2d4a8a" stopOpacity={0.02} />
             </linearGradient>
             <linearGradient id="transformerGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#78b957" stopOpacity={0.2} />
-              <stop offset="95%" stopColor="#78b957" stopOpacity={0.02} />
+              <stop offset="5%" stopColor="#3d6b24" stopOpacity={0.2} />
+              <stop offset="95%" stopColor="#3d6b24" stopOpacity={0.02} />
             </linearGradient>
             <linearGradient id="tcnGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#d4a43e" stopOpacity={0.2} />
-              <stop offset="95%" stopColor="#d4a43e" stopOpacity={0.02} />
+              <stop offset="5%" stopColor="#8a5f1a" stopOpacity={0.2} />
+              <stop offset="95%" stopColor="#8a5f1a" stopOpacity={0.02} />
             </linearGradient>
             <linearGradient id="obsGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#a97ba7" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#a97ba7" stopOpacity={0.02} />
+              <stop offset="5%" stopColor="#6b4369" stopOpacity={0.3} />
+              <stop offset="95%" stopColor="#6b4369" stopOpacity={0.02} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--color-border))" />
@@ -190,7 +189,7 @@ export default function ForecastChart() {
             axisLine={false}
             tickLine={false}
             tickFormatter={(v) => `${(v)}`}
-            domain={[0, 0.5]}
+            domain={[0, 0.35]}
           />
           <Tooltip content={<CustomTooltip />} />
 
@@ -223,22 +222,11 @@ export default function ForecastChart() {
             strokeOpacity={0.5}
           />
 
-          {visibleModels.observed && (
-            <Area
-              type="monotone"
-              dataKey="observed"
-              stroke="#a97ba7"
-              strokeWidth={2.5}
-              fill="url(#obsGrad)"
-              dot={{ fill: '#a97ba7', r: 4, strokeWidth: 0 }}
-              connectNulls={false}
-            />
-          )}
           {visibleModels.rf && (
             <Area
               type="monotone"
               dataKey="rf"
-              stroke="#6b8dd4"
+              stroke="#2d4a8a"
               strokeWidth={2}
               fill="url(#rfGrad)"
               strokeDasharray="6 3"
@@ -249,7 +237,7 @@ export default function ForecastChart() {
             <Area
               type="monotone"
               dataKey="transformer"
-              stroke="#78b957"
+              stroke="#3d6b24"
               strokeWidth={2}
               fill="url(#transformerGrad)"
               dot={false}
@@ -259,30 +247,15 @@ export default function ForecastChart() {
             <Area
               type="monotone"
               dataKey="tcn"
-              stroke="#d4a43e"
+              stroke="#8a5f1a"
               strokeWidth={2}
               fill="url(#tcnGrad)"
               strokeDasharray="3 3"
               dot={false}
             />
           )}
-
-          <Brush
-            dataKey="day"
-            height={24}
-            stroke="hsl(var(--color-border))"
-            fill="hsl(var(--color-card))"
-            travellerWidth={6}
-          />
         </AreaChart>
       </ResponsiveContainer>
-
-      <div className="mt-3 flex items-center gap-1.5 text-[11px] text-muted-foreground">
-        <Info size={11} />
-        <span className="font-mono">
-          Day 0 shows current observed discharge. Forecast begins Day 1. Transformer model predicts highest peak on Day 4.
-        </span>
-      </div>
     </div>
   );
 }
