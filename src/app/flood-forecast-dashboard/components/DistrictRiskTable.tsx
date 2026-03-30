@@ -12,9 +12,9 @@ interface District {
 }
 
 const districts: District[] = [
-  { sn: 1,  district: 'Bardiya',     province: 'Lumbini', riskLevel: 'VeryHigh',     riskScore: 95, keyFloodHazardZones: 'Main Karnali corridor; flat floodplain; cropland' },
-  { sn: 2,  district: 'Banke',  province: 'Lumbini', riskLevel: 'VeryHigh',     riskScore: 92, keyFloodHazardZones: 'Mahakali-Sharda river overflow; western terai plains; border canal flooding' },
-  { sn: 3,  district: 'Kailali',       province: 'Sudurpashchim',       riskLevel: 'VeryHigh',     riskScore: 90, keyFloodHazardZones: 'Rapti river overflow zones; terai low-lying areas; urban flood pockets' },
+  { sn: 1,  district: 'Bardiya',     province: 'Lumbini', riskLevel: 'High',     riskScore: 95, keyFloodHazardZones: 'Main Karnali corridor; flat floodplain; cropland' },
+  { sn: 2,  district: 'Banke',  province: 'Lumbini', riskLevel: 'High',     riskScore: 92, keyFloodHazardZones: 'Mahakali-Sharda river overflow; western terai plains; border canal flooding' },
+  { sn: 3,  district: 'Kailali',       province: 'Sudurpashchim',       riskLevel: 'High',     riskScore: 90, keyFloodHazardZones: 'Rapti river overflow zones; terai low-lying areas; urban flood pockets' },
   { sn: 4,  district: 'Kanchanpur',    province: 'Sudurpashchim', riskLevel: 'High',     riskScore: 78, keyFloodHazardZones: 'Mahakali river international corridor; Chameliya river gorge; glacial melt streams' },
   { sn: 5,  district: 'Dang',     province: 'Lumbini',       riskLevel: 'High', riskScore: 75, keyFloodHazardZones: 'Karnali river bank overflow; terai floodplain; wildlife corridor flooding' },
   { sn: 6,  district: 'Surkhet',        province: 'Karnali',       riskLevel: 'High', riskScore: 62, keyFloodHazardZones: 'Rapti river floodplain; Dang valley floor; seasonal inundation areas' },
@@ -72,7 +72,7 @@ export default function DistrictRiskTable() {
 
         {/* Filter */}
         <div className="flex items-center gap-1 bg-muted/20 rounded-lg p-1 border border-border">
-          {(['All', 'VeryHigh', 'High', 'Moderate'] as FilterType[]).map((f) => (
+          {(['All', 'High', 'Moderate'] as FilterType[]).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -144,17 +144,12 @@ export default function DistrictRiskTable() {
       </div>
 
       {/* Summary row */}
-      <div className="mt-4 grid grid-cols-4 gap-3">
+      <div className="mt-4 grid grid-cols-3 gap-3">
         <div className="p-3 rounded-lg bg-muted/20 border border-border">
           <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-1">Total Districts</p>
           <p className="text-[20px] font-bold  font-mono">{districts.length}</p>
         </div>
-        <div className="p-3 rounded-lg bg-muted/20 border border-border">
-          <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-1">Very High Risk</p>
-          <p className="text-[20px] font-bold font-mono">
-            {districts.filter((d) => d.riskLevel === 'VeryHigh').length}
-          </p>
-        </div>
+        
         <div className="p-3 rounded-lg bg-muted/20 border border-border">
           <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-1">High Risk</p>
           <p className="text-[20px] font-bold font-mono">
